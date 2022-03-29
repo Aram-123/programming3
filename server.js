@@ -79,20 +79,16 @@ app.get("/", function (req, res) {
 });
 server.listen(3000);
 
-let grassBorn = 0;
-let grassEaterBorn = 0;
 
 function CreateObjects() {
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] == 1) {
-        let grass1 = new Grass(x, y);
+        let grass1 = new Grass(x,y);
         grassArray.push(grass1);
-        grassBorn++;
       } else if (matrix[y][x] == 2) {
         let grassEater = new GrassEater(x, y);
         grassEaterArr.push(grassEater);
-        grassEaterBorn++;
       } else if (matrix[y][x] == 3) {
         let predator1 = new Predator(x, y);
         predatorArr.push(predator1);
@@ -119,7 +115,6 @@ io.on("connection", (socket) => {
       bombArr[rand].detonate();
     }
   });
-
   socket.on("season changed", function () {
     if (season == 4) {
       season = 1;
@@ -128,10 +123,6 @@ io.on("connection", (socket) => {
     }
   });
 });
-
-
-io.sockets.emit("grassBorn",grassBorn);
-io.sockets.emit("grassEaterBorn",grassEaterBorn);
 
 function game() {
   if (grassArray[0] !== undefined) {
@@ -175,7 +166,6 @@ function game() {
     bombCounter: bombArr.length,
   };
   io.sockets.emit("data", sendData);
-
   io.sockets.emit("current season", season);
 }
 setInterval(game, 100);

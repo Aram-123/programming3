@@ -6,6 +6,7 @@ body {
 .dark-mode {
   background-color: #2C2C2EFF;
   color: #fff;
+  transition: 0.33s;
 }
 canvas {
   margin-top: 50px;
