@@ -23,6 +23,18 @@ module.exports = class GrassEater extends LivingCreature {
        this.getNewCoordinates();
        return super.chooseCell(char);
    }
+
+   maxEnergyChanger(num) {
+    let value;
+    if(num == 2 || num == 4) {
+        value = 70;
+    } else if(num == 3) {
+        value = 90;
+    } else {
+        value = 40;
+    }
+    return value;
+   }
    
    mul() {
     var emptyCells = this.chooseCell(0);
@@ -56,7 +68,8 @@ move() {
 
 }
 
-eat() {
+eat(num) {
+    let val = this.maxEnergyChanger(num);
     var emptyCells = this.chooseCell(1);
     var newCell = random(emptyCells);
 
@@ -79,7 +92,7 @@ eat() {
     } else {
         this.move();
     } 
-    if(this.energy > 22) {
+    if(this.energy > val) {
         this.mul();
     }
 }

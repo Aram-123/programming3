@@ -16,17 +16,7 @@ grassPlanterArr = [];
 grassEaterPlanterArr = [];
 bombArr = [];
 
-
-
-
-function createMatrix(width, height, num1, num2, num3, num4, num5, num6) {
-  for (let i = 0; i < height; i++) {
-    matrix.push([]);
-    for (let j = 0; j < width; j++) {
-      matrix[i].push(0);
-    }
-  }
-
+function fillMatrix(num1, num2, num3, num4, num5, num6) {
   for (let m = 0; m < num1; m++) {
     let randX = Math.floor(Math.random() * matrix[0].length);
     let randY = Math.floor(Math.random() * matrix.length);
@@ -64,6 +54,18 @@ function createMatrix(width, height, num1, num2, num3, num4, num5, num6) {
 
     matrix[randY][randX] = 6;
   }
+}
+
+
+function createMatrix(width, height, num1, num2, num3, num4, num5, num6) {
+  for (let i = 0; i < height; i++) {
+    matrix.push([]);
+    for (let j = 0; j < width; j++) {
+      matrix[i].push(0);
+    }
+  }
+  
+  fillMatrix(num1, num2, num3, num4, num5, num6);
 }
 
 createMatrix(45, 45, 800, 100, 60, 20, 20, 60);
@@ -108,6 +110,28 @@ function CreateObjects() {
 
 CreateObjects();
 
+
+function deleteObjects() {
+  grassArray.splice(0, grassArray.length);
+  grassEaterArr.splice(0, grassEaterArr.length);
+  predatorArr.splice(0, predatorArr.length);
+  grassPlanterArr.splice(0, grassPlanterArr.length);
+  grassEaterPlanterArr.splice(0, grassEaterPlanterArr.length);
+  bombArr.splice(0, bombArr.length);
+}
+
+function clear() {
+  deleteObjects();
+  for(let i = 0; i < matrix.length; i++) {
+    for(let j = 0; j < matrix[i].length;j++) {
+      matrix[i][j] = 0;
+    }
+  }
+  
+  fillMatrix(800, 100, 60, 20, 20, 60);
+  CreateObjects();
+}
+
 io.on("connection", (socket) => {
   socket.on("clicked", function () {
     if (bombArr[0] !== undefined) {
@@ -115,29 +139,37 @@ io.on("connection", (socket) => {
       bombArr[rand].detonate();
     }
   });
-  socket.on("season changed", function () {
-    if (season == 4) {
-      season = 1;
-    } else {
-      season++;
-    }
+  socket.on("season changed", () => {
+      if (season == 4) {
+        season = 1;
+      } else {
+        season++;
+      }
+    });
+
+  socket.on("clear canvas", () => {
+    clear();
   });
 });
+
+
+
+
 
 function game() {
   if (grassArray[0] !== undefined) {
     for (let i in grassArray) {
-      grassArray[i].mul();
+      grassArray[i].mul(season);
     }
   }
   if (grassEaterArr[0] !== undefined) {
     for (let i in grassEaterArr) {
-      grassEaterArr[i].eat();
+      grassEaterArr[i].eat(season);
     }
   }
   if (predatorArr[0] !== undefined) {
     for (let i in predatorArr) {
-      predatorArr[i].eat();
+      predatorArr[i].run(season);
     }
   }
   if (grassPlanterArr[0] !== undefined) {

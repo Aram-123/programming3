@@ -30,6 +30,29 @@ module.exports = class Predator extends LivingCreature {
         }
         return found;
     }
+    changeSpeed(num) {
+        let value;
+        if(num == 2 || num == 4) {
+            value = 1;
+        } else if(num == 3) {
+            value = 2;
+        } else {
+            value = 0;
+        }
+        return value;
+    }
+
+    run(num) {
+        let val = this.changeSpeed(num);
+        if(this.multiply >= val) {
+            this.eat();
+            this.multiply = 0;
+        } else {
+            this.multiply++;
+        }
+    }
+
+
     eat() {
         var emptyCells = this.chooseCell();
         var newCell = random(emptyCells);

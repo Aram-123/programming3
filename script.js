@@ -20,11 +20,23 @@ function setup() {
   let bombColor = "#000000";
   let fillColor = "#CBC8CC";
 
-  document.getElementById("darkMode").addEventListener("click",myFunction);
-function myFunction() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
-}
+  var tooltiptext = document.getElementById("tooltiptext");
+  var tooltiptext1 = document.getElementById("tooltiptext1");
+
+  window.onmousemove = function (e) {
+    var x = e.clientX,
+      y = e.clientY;
+    tooltiptext.style.top = y + 20 + "px";
+    tooltiptext.style.left = x + 20 + "px";
+    tooltiptext1.style.top = y + 20 + "px";
+    tooltiptext1.style.left = x + 20 + "px";
+  };
+
+  document.getElementById("darkMode").addEventListener("click", myFunction);
+  function myFunction() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+  }
 
   let bombButton = document.getElementById("bombButton");
   bombButton.addEventListener("click", function () {
@@ -34,6 +46,11 @@ function myFunction() {
   let seasonButton = document.getElementById("seasonButton");
   seasonButton.addEventListener("click", function () {
     socket.emit("season changed");
+  });
+
+  let clearButton = document.getElementById("clearButton");
+  clearButton.addEventListener("click",() => {
+    socket.emit("clear canvas");
   });
 
   socket.on("current season", function (season) {
@@ -73,7 +90,6 @@ function myFunction() {
     }
   });
 
-    
   socket.on("data", drawCreatures);
 
   function drawCreatures(data) {
