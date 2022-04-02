@@ -4,6 +4,7 @@ body {
   justify-content:space-evenly;
   background-color: #fff;
   font-family: Arial, Helvetica, sans-serif;
+  transition: 0.33s;
 }
 p {
   margin: 2.5px;
@@ -94,64 +95,6 @@ p.info {
   transition: 0.2s;
   box-shadow: 1px 1px 15px 1px #5c5c5c;
 }
-img {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 250px;
-  background-color: rgba(0, 0, 0, 0.492);
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 3px;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  display:block;
-  position:fixed;
-  overflow:hidden;
-  opacity: 1;
-}
-
-.tooltip1 {
-  position: relative;
-  display: inline-block;
-  width: 450px;
-}
-.tooltip1 .tooltiptext1 {
-  visibility: hidden;
-  width: 250px;
-  background-color: rgba(0, 0, 0, 0.492);
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 3px;
-  position: absolute;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.tooltip1:hover .tooltiptext1 {
-  visibility: visible;
-  display:block;
-  position:fixed;
-  overflow:hidden;
-  opacity: 1;
-}
 
 #clearButton {
   height: 35px;
@@ -180,4 +123,12 @@ img {
   font-size: 17px;
   margin-bottom: 0px;
   margin-top: 3px;
+}
+
+#darkMode{
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 50px;
+  left: 280px;
 }

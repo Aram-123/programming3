@@ -68,7 +68,7 @@ function createMatrix(width, height, num1, num2, num3, num4, num5, num6) {
   fillMatrix(num1, num2, num3, num4, num5, num6);
 }
 
-createMatrix(45, 45, 800, 100, 60, 20, 20, 60);
+createMatrix(45, 45, 900, 100, 60, 20, 20, 60);
 
 var express = require("express");
 var app = express();
